@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
-import Modal from "./modal";
+import Modal from "./Modal";
 import WeatherIcon from "./WeatherIcon";
 import { motion } from "framer-motion";
 
@@ -29,7 +29,7 @@ export default function Home() {
         setError("Geolocation is not supported by this browser.");
       }
     };
-    
+
     getLocation();
 
     async function fetchWeather(latitude, longitude) {
