@@ -25,7 +25,7 @@ export default function Login() {
     e.preventDefault();
     setMessage('Please Wait...!');
     try {
-      const res = await fetch('http://localhost:3000/login', {
+      const res = await fetch('https://weather-app-rcwz.onrender.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export default function Login() {
           name="email_Id"
           placeholder="Enter your email"
           required
-          className="my-2 w-1/4 rounded-md p-2"
+          className="my-2 md:w-1/4 rounded-md p-2"
         />
         <br />
         <input
@@ -78,7 +78,7 @@ export default function Login() {
           name="password"
           placeholder="Enter your password"
           required
-          className="my-2 w-1/4 rounded-md p-2"
+          className="my-2 md:w-1/4 rounded-md p-2"
         />
         <br />
         <button className="mt-5 bg-white p-2 px-4 rounded-md hover:bg-blue-800 hover:text-white">

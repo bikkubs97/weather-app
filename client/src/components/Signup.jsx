@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
   });
+
+  const navigate = useNavigate();
 
   const [message, setMessage] = useState("");
 
@@ -36,7 +39,7 @@ export default function Signup() {
     setMessage("");
     console.log(formData);
     try {
-      const res = await fetch("http://localhost:3000/signup", {
+      const res = await fetch("https://weather-app-rcwz.onrender.com/signup", {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -45,7 +48,7 @@ export default function Signup() {
       });
       if (res.ok) {
         setMessage("Account created, Now please login..");
-        window.location.href = '/login';
+        navigate("/login");
       }
     } catch (err) {
       console.log(err);
@@ -73,7 +76,7 @@ export default function Signup() {
           name="email_Id"
           placeholder="enter your email"
           required
-          className="my-2 w-1/4 rounded-md p-2"
+          className="my-2 md:w-1/4 rounded-md p-2"
         />
         <br />
         <input
@@ -83,7 +86,7 @@ export default function Signup() {
           name="password"
           placeholder="enter your password"
           required
-          className="my-2 w-1/4 rounded-md p-2"
+          className="my-2 md:w-1/4 rounded-md p-2"
         />
         <br />
         <input
@@ -93,7 +96,7 @@ export default function Signup() {
           name="confirmPassword"
           placeholder="confirmPassword"
           required
-          className="my-2 w-1/4 rounded-md p-2"
+          className="my-2 md:w-1/4 rounded-md p-2"
         />
         <br />
         <button className="mt-5 bg-white p-2 px-4 rounded-md hover:bg-blue-800 hover:text-white">

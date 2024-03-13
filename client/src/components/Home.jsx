@@ -35,7 +35,7 @@ export default function Home() {
     async function fetchWeather(latitude, longitude) {
       try {
         const res = await fetch(
-          `http://localhost:3000/weather?location=${latitude},${longitude}`
+          `https://weather-app-rcwz.onrender.com/weather?location=${latitude},${longitude}`
         );
         const data = await res.json();
         setWeatherData(data);
@@ -50,7 +50,7 @@ export default function Home() {
   //submitting form to update the city list
   async function handleAddCity() {
     try {
-      const res = await fetch("http://localhost:3000/city", {
+      const res = await fetch("https://weather-app-rcwz.onrender.com/city", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +92,7 @@ export default function Home() {
   return (
     <div className="text-center text-2xl w-full h-screen z-10">
       <Navbar />
-      <h1 className="font-bold text-white text-3xl mb-4">
+      <h1 className="font-bold text-white mt-4 md:mt-0 md:text-3xl mb-4 mx-4">
         What is the weather like today?
       </h1>
       <div className="h-12">

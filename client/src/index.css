@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 body {
-  overflow-y: hidden;
   overflow-x: hidden;
   font-family: "Poppins", sans-serif;
+  height: 100%;
 }
 #root {
   height: 100vh; 
@@ -25,6 +25,7 @@ body {
   animation-iteration-count: infinite;
   z-index: 0;
 }
+
 
 .cloud::before,
 .cloud::after {
