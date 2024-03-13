@@ -15,7 +15,7 @@ export default function Modal({ setShowModal }) {
     try {
       const token = localStorage.getItem("token");
   
-      const res = await fetch("http://localhost:3000/emails", {
+      const res = await fetch("https://weather-app-rcwz.onrender.com/emails", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
