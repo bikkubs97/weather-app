@@ -55,33 +55,32 @@ export default function Home() {
   }
 
 
-async function handleAddCity() {
-  try {
-    const res = await fetch("https://weather-app-rcwz.onrender.com/city", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Include token in Authorization header
-      },
-      body: JSON.stringify({
-        city: weatherData.name,
-        coordinates: weatherData.coord,
-      }),
-    });
-
-    if (res.ok) {
-      setMessage("City successfully added to your cities");
-    } else {
-      const errorMessage = await res.text() // Extract error message from response
-      setMessage(errorMessage || "Couldn't add city");
+  async function handleAddCity() {
+    try {
+      const res = await fetch("https://weather-app-rcwz.onrender.com/city", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include token in Authorization header
+        },
+        body: JSON.stringify({
+          city: weatherData.name,
+          coordinates: weatherData.coord,
+        }),
+      });
+  
+      if (res.ok) {
+        setMessage("City successfully added to your cities");
+      } else {
+        const errorMessage = await res.json(); // Parse error message as JSON
+        throw new Error(errorMessage.error); // Throw error with the error message string
+      }
+    } catch (err) {
+      console.log(err);
+      setMessage(err.message || "An error occurred while adding the city");
     }
-  } catch (err) {
-    console.log(err);
-    setMessage("An error occurred while adding the city");
   }
-}
-
-
+  
   //for framer motion animation options
   const variants = {
     visible: {
