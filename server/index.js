@@ -106,7 +106,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-//route for updating city list for the user
+
 
 app.put("/city", verifyToken, async function (req, res) {
   try {
@@ -115,12 +115,18 @@ app.put("/city", verifyToken, async function (req, res) {
       latitude: req.body.coordinates.lat,
       longitude: req.body.coordinates.lon,
     }; // Extract coordinates from the request body
-    console.log(coordinates);
+
     // Find the user document by email
     const user = await User.findById(req.user.user._id);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check if the city already exists in the user's cities array
+    const existingCity = user.cities.find(city => city.name === newCity);
+    if (existingCity) {
+      return res.status(400).json({ error: "City already added" });
     }
 
     // Add the new city to the cities array with proper coordinates
@@ -136,6 +142,7 @@ app.put("/city", verifyToken, async function (req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 //route for updating the emails for the user
 app.put("/emails", verifyToken, async (req, res) => {

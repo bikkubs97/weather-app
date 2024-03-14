@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Modal from "./Modal";
 import WeatherIcon from "./WeatherIcon";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [latitude, setLatitude] = useState(null);
@@ -45,33 +46,41 @@ export default function Home() {
     }
   }, []);
 
+ 
   const token = localStorage.getItem("token");
-
-  //submitting form to update the city list
-  async function handleAddCity() {
-    try {
-      const res = await fetch("https://weather-app-rcwz.onrender.com/city", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include token in Authorization header
-        },
-        body: JSON.stringify({
-          city: weatherData.name,
-          coordinates: weatherData.coord,
-        }),
-      });
-
-      if (res.ok) {
-        setMessage("City successfully added to your cities");
-      } else {
-        setMessage("Couldn't add city");
-      }
-    } catch (err) {
-      console.log(err);
-      setMessage("An error occurred while adding the city");
-    }
+  const navigate = useNavigate();
+  
+  if (!token) {
+    navigate("/login");
   }
+
+
+async function handleAddCity() {
+  try {
+    const res = await fetch("https://weather-app-rcwz.onrender.com/city", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Include token in Authorization header
+      },
+      body: JSON.stringify({
+        city: weatherData.name,
+        coordinates: weatherData.coord,
+      }),
+    });
+
+    if (res.ok) {
+      setMessage("City successfully added to your cities");
+    } else {
+      const errorMessage = await res.text() // Extract error message from response
+      setMessage(errorMessage || "Couldn't add city");
+    }
+  } catch (err) {
+    console.log(err);
+    setMessage("An error occurred while adding the city");
+  }
+}
+
 
   //for framer motion animation options
   const variants = {

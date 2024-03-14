@@ -11,6 +11,10 @@ export default function Signup() {
   });
 
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");  
+  if (token) {
+    navigate("/home");
+  }
 
   const [message, setMessage] = useState("");
 
