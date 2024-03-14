@@ -43,7 +43,7 @@ export default function Modal({ setShowModal }) {
 
   return (
     <motion.div
-      className="fixed top-0 bg-gradient-to-r from-cyan-500 to-blue-500 w-full h-full"
+      className="fixed top-0 bg-gradient-to-r from-cyan-500 to-blue-500 md:w-full h-full"
       variants={modalVariants}
       initial="closed"
       animate="open"
@@ -60,12 +60,14 @@ export default function Modal({ setShowModal }) {
         <p className="text-yellow-200 m-10">
           We will send weather updates every day at 12 PM except on Sundays
         </p>
+        <p>Enter your mail addresses</p>
         <input
           type="email"
           name="email1"
           value={emails.email1}
           onChange={handleChange}
-          className="m-2 rounded-md"
+          placeholder="email-1"
+          className="m-2 rounded-md p-1"
           required
         />
         <br />
@@ -74,7 +76,8 @@ export default function Modal({ setShowModal }) {
           name="email2"
           value={emails.email2}
           onChange={handleChange}
-          className="m-2 rounded-md"
+          className="m-2 rounded-md p-1"
+          placeholder="email-2"
           required
         />
         <br />
@@ -83,7 +86,8 @@ export default function Modal({ setShowModal }) {
           name="email3"
           value={emails.email3}
           onChange={handleChange}
-          className="m-2 rounded-md"
+          className="m-2 rounded-md p-1"
+          placeholder="email-3"
           required
         />
         <br />
