@@ -22,7 +22,7 @@ export default function Navbar() {
       ) : (
         <button
           onClick={() => navigate("/login")}
-          className="bg-white px-1 rounded-md hover:bg-blue-800 hover:text-white"
+          className="bg-white text-2xl px-1  rounded-md hover:bg-blue-800 hover:text-white"
         >
           login
         </button>
