@@ -7,6 +7,4 @@ Weather API : Openweathermap
 
 Set up the code and run npm install, npm run dev to start client and server.
 
-I am attaching the video of the demo with this email.
-
-Live link : 
+Live link : https://todyasweather.onrender.com
