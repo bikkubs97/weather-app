@@ -38,7 +38,7 @@ export default function Login() {
         localStorage.setItem('token', data.token);
         navigate('/home');
       }
-      if (res.status === 404) {
+      if (res.status === 401) {
         setMessage('Invalid username or password');
       }
     } catch (err) {

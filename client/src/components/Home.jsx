@@ -11,6 +11,11 @@ export default function Home() {
   const [message, setMessage] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [cities, setCities] = useState([ {
+    coordinates: { latitude: 0, longitude: 0 },
+    name: '',
+    _id: ''
+  }])
 
   //obtain location coordinates and weather info on mounting
   useEffect(() => {
@@ -32,6 +37,7 @@ export default function Home() {
     };
 
     getLocation();
+
 
     async function fetchWeather(latitude, longitude) {
       try {

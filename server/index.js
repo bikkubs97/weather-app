@@ -107,7 +107,7 @@ app.post("/login", async (req, res) => {
 });
 
 
-
+//update cities
 app.put("/city", verifyToken, async function (req, res) {
   try {
     const newCity = req.body.city; // Extract new city data from the request body
