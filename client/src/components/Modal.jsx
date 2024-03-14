@@ -10,31 +10,35 @@ export default function Modal({ setShowModal }) {
     setEmails((prev) => ({ ...prev, [name]: value }));
   }
 //funciton to submit form for updating emails and creating alert
-  async function handleSubmit(event) {
-    event.preventDefault();   
-    try {
-      const token = localStorage.getItem("token");
-  
-      const res = await fetch("https://weather-app-rcwz.onrender.com/emails", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(emails),
-      });
-  
-      if (res.ok) {
-        setError("Mail Alert Created!")
+async function handleSubmit(event) {
+  event.preventDefault();
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch("https://weather-app-rcwz.onrender.com/emails", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(emails),
+    });
+
+    if (res.ok) {
+      setError("Mail Alert Created!");
+    } else {
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
       } else {
-        const data = await res.json();
-        setError(data.error || "Failed to send emails");
+        throw new Error("Failed to send emails");
       }
-    } catch (error) {
-      console.error("Error sending emails:", error);
-      setError("An unexpected error occurred");
     }
+  } catch (error) {
+    console.error("Error sending emails:", error.message);
+    setError(error.message);
   }
+}
+
  //framer motion animation options
   const modalVariants = {
     open: { x: 0, opacity: 1 },

@@ -144,25 +144,43 @@ app.put("/city", verifyToken, async function (req, res) {
 });
 
 
-//route for updating the emails for the user
-app.put("/emails", verifyToken, async (req, res) => {
+
+
+app.put("/emails", verifyToken, async function(req, res) {
   try {
-    const { email1, email2, email3 } = req.body; // Extract new email data from the request body
-    // Find the user document by its _id
+    const { email1, email2, email3 } = req.body;
+
+    // Check for duplicate emails
+    const emails = [email1, email2, email3];
+    const duplicates = emails.filter((email, index) => emails.indexOf(email) !== index);
+
+    if (duplicates.length > 0) {
+      return res.status(400).json({ error: "Duplicate emails found, Use different ones" });
+    }
+
     const user = await User.findById(req.user.user._id);
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
-    } // Push the new emails to the emails array
+    }
+
+    // Check if emails already exist
+    const existingEmails = user.emails.filter(existingEmail => emails.includes(existingEmail));
+    if (existingEmails.length > 0) {
+      return res.status(400).json({ error: `Emails already exist: ${existingEmails.join(', ')}` });
+    }
+
     user.emails.push(email1, email2, email3);
-    // Save the updated document
+
     const updatedUser = await user.save();
-    // Send the updated document as the response
+
     res.status(200).json(updatedUser);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 //scheduling corn to send emails at 12pm everyday except on sundays
 cron.schedule(
