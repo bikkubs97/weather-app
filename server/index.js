@@ -24,8 +24,7 @@ db.once("open", () => {
   console.log("connected to mongoose!!");
 });
 
-//Route for corn job , to keep the free server awake
-
+//Route for cron job , to keep the free server awake
 app.get("/", (req, res) => {
   res.send("Server is live");
 });
@@ -182,9 +181,9 @@ app.put("/emails", verifyToken, async function(req, res) {
 });
 
 
-//scheduling corn to send emails at 12pm everyday except on sundays
+//scheduling cron to send emails at 12pm everyday except on sundays
 cron.schedule(
-  "26 23 * * 1-6",
+  "00 12 * * 1-6",
   async () => {
     try {
       const usersWithEmails = await User.find({
